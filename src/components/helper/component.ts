@@ -30,7 +30,3 @@ export const transformToId = (...args: any[]) => {
   const names = args.map((name) => formatToId(String(name)));
   return names.join("_");
 };
-
-type WithID = {
-  id: number | string;
-};

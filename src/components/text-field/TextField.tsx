@@ -4,7 +4,6 @@ import { alpha, styled } from "@mui/material/styles";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 import { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import { formatToId } from "../helper/component";
-import { COLOR } from "../constants/color";
 import { BASE_INPUT } from "../constants/style";
 
 const DEFAULT_PROPS: TextFieldProps = {

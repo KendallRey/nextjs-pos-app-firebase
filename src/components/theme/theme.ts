@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material";
+import { COLOR } from "../constants/color";
 
 export const MuiTheme = createTheme({
   palette: {
@@ -27,7 +28,7 @@ export const MuiTheme = createTheme({
       styleOverrides: {
         root: {
           "&.Mui-selected": {
-            borderLeft: "4px solid #FE7240",
+            borderLeft: `4px solid ${COLOR.PRIMARY[500]}`,
           },
         },
       },

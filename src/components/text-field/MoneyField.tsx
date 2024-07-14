@@ -1,3 +1,5 @@
+"use client";
+
 import { OutlinedInputProps, TextFieldProps } from "@mui/material";
 import { formatToId } from "../helper/component";
 import { ICustomNumericFormatProps, NumericFormatCustom } from "./NumberField";
