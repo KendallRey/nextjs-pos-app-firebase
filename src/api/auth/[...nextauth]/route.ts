@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { SESSION } from "@/constants/SESSION";
 import { getAxiosApiError } from "@/redux/helper/error";
 import AxiosInstance from "../../axios";
-import { AuthTokenSchema, RefreshTokenSchema } from "@/app/model/auth";
+import { AuthTokenSchema, RefreshTokenSchema } from "@/model/auth";
 
 const authOptions: AuthOptions = {
   providers: [

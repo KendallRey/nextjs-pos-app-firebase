@@ -1,4 +1,4 @@
-import { IModel } from "@/app/model/schema";
+import { IModel } from "@/model/schema";
 
 /**
  * Returns array of ID.

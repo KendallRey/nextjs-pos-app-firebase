@@ -1,4 +1,4 @@
-import { ApiErrorSchema } from "@/app/model/api";
+import { ApiErrorSchema } from "@/model/api";
 import { formatToLabel } from "@/components/helper/component";
 
 /**

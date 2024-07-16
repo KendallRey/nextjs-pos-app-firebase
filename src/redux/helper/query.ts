@@ -1,4 +1,4 @@
-import { ApiErrorSchema } from "@/app/model/api";
+import { ApiErrorSchema } from "@/model/api";
 import { formatToLabel } from "@/components/helper/component";
 import { BaseQueryApi, fetchBaseQuery, FetchBaseQueryError, FetchBaseQueryMeta } from "@reduxjs/toolkit/query";
 import { REDUX } from "../constant/slice";
