@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 
 type MuiButtonProps = ButtonProps;
 
+const DEFAULT_PROPS = {};
+
 const MuiButton: React.FC<MuiButtonProps> = (props) => {
   return (
     <Button

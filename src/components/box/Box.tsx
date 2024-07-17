@@ -3,12 +3,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-import MuiBox, { BoxProps } from "@mui/material/Box";
+import Box, { BoxProps } from "@mui/material/Box";
 
-const BoxComponent = React.forwardRef((props: BoxProps, ref) => <MuiBox {...props} ref={ref} />);
+const BoxComponent = React.forwardRef((props: BoxProps, ref) => <Box {...props} ref={ref} />);
 
 BoxComponent.displayName = "BoxComponent";
 
-const Box = motion(BoxComponent);
+const MuiBox = motion(BoxComponent);
 
-export default Box;
+export default MuiBox;
