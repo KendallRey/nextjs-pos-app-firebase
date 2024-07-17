@@ -1,9 +1,16 @@
+"use client";
+
 import MuiButton from "@/components/button/Button";
 import MuiPaper from "@/components/paper/Paper";
 import MuiTypography from "@/components/typography/Typograph";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const Navigation = () => {
+  const pathname = usePathname();
+
+  console.log("first", pathname.split("/"));
+
   return (
     <MuiPaper component={"nav"} className="flex-grow max-w-[240px] p-4" elevation={3} color="primary">
       <div className="flex flex-col gap-2">
