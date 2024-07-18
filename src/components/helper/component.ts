@@ -1,3 +1,5 @@
+import { MONEY } from "../constants/config";
+
 /**
  * Format string to Label / Display.
  * @sample first_year -> First Year
@@ -30,3 +32,39 @@ export const transformToId = (...args: any[]) => {
   const names = args.map((name) => formatToId(String(name)));
   return names.join("_");
 };
+
+/**
+ * Parses a number to a currency string format.
+ *
+ * @param {number | undefined} value - The value to be formatted as currency.
+ * @returns {string} - The formatted currency string.
+ */
+export const parseToMoney = (value: number | undefined): string => {
+  const _value = value || 0;
+  return Intl.NumberFormat(MONEY.LOCALE, {
+    style: "currency",
+    currency: MONEY.CURRENCY,
+  }).format(_value);
+};
+
+/**
+ * Parses a number to a compact currency string format.
+ *
+ * @param {number | undefined} value - The value to be formatted as compact currency.
+ * @returns {string} - The formatted compact currency string.
+ */
+export const shortParseToMoney = (value: number | undefined): string => {
+  const _value = value || 0;
+  return Intl.NumberFormat(MONEY.LOCALE, {
+    notation: "compact",
+    compactDisplay: "short",
+  }).format(_value);
+};
+
+/**
+ * Formats a number to a string with a count format.
+ *
+ * @param {number | undefined} value - The value to be formatted as a count.
+ * @returns {string} - The formatted count string.
+ */
+export const formatToCount = (value: number | undefined): string => new Intl.NumberFormat(undefined).format(value || 0);
