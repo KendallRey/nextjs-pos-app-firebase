@@ -1,5 +1,7 @@
 const REDUX_SLICE = {
   SAMPLE: "sample-slice",
+  PRODUCT: "product-slice",
+  PRODUCT_FORM: "product-form-slice",
 } as const;
 
 const REDUX_API = {

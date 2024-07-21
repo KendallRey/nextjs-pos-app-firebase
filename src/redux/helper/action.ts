@@ -1,5 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { REDUX } from "../constant/slice";
+import { clearDataArrayOf } from "@/components/helper/array";
+import { IModel } from "@/model/base/model";
 
 /**
  * Generates a function to set a specific field in the state.
@@ -180,4 +182,73 @@ export const clearFieldErrorAction = <T extends Record<string, any>>(field: keyo
     state[field].error = {};
   };
   return clearFieldError;
+};
+
+/**
+ * Set array of object to object array field.
+ * @param field Object array field name.
+ */
+export const setArrayAction = <T extends Record<string, any>>(field: keyof T) => {
+  return (state: T, action: PayloadAction<IModel[]>) => {
+    const { payload } = action;
+    state[field] = payload as T[keyof T];
+  };
+};
+
+/**
+ * Adds/Selects or Removes/unselects object to list.
+ * @note Object to add / remove must have `id` field
+ * @param  field Array field name.
+ */
+export const selectItemAction = <T extends Record<string, any>, D extends IModel>(field: keyof T) => {
+  return (state: T, action: PayloadAction<{ item: D; select?: boolean }>) => {
+    const { payload } = action;
+    const { item, select } = payload;
+    if (select) {
+      const cleanList = clearDataArrayOf(state[field], [item]);
+      cleanList.push(item);
+      state[field] = cleanList as T[keyof T];
+    } else {
+      const cleanList = clearDataArrayOf(state[field], [item]);
+      state[field] = cleanList as T[keyof T];
+    }
+  };
+};
+
+type IProcessFormActionOptions<T> = {
+  keyRelations?: IFormKeysRelation<T>;
+};
+
+/**
+ * Same function of `editFormAction`, with `options` for processing fields
+ * @param initialState Initial state object of the form
+ * @param keyRelations Arrays of field keys to clear when invoked, see example below.
+ * @example
+ * ```json
+ * {
+ *   "campus": ["building_id", "room_id"],
+ * }
+ * ```
+ * If `campus` is passed as latest key, clears the `building_id` and `room_id` fields base on their `initialState` value
+ */
+
+export const processFormAction = <T>(initialState: T, options?: IProcessFormActionOptions<T>) => {
+  const keysToClear = options?.keyRelations;
+  const setFormFunction = (state: IReduxFormState<T>, action: PayloadAction<Record<string, any>>) => {
+    const { payload: initialPayload } = action;
+
+    const { [REDUX.FIELD.KEY]: _key, ...payload } = initialPayload;
+    const key = _key as keyof T;
+    // Overrides key pair values
+    let fieldToClears = {};
+    // Maps key to clear if found in the options
+    if (keysToClear && key in keysToClear) {
+      keysToClear[key]?.forEach((item) => {
+        fieldToClears = { ...fieldToClears, [item]: initialState[item] };
+      });
+    }
+    const error = { ...state.error, [key]: "", ...fieldToClears };
+    return { ...state, error, ...payload, ...fieldToClears };
+  };
+  return setFormFunction;
 };
