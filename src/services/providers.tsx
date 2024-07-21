@@ -17,15 +17,15 @@ export const Providers: React.FC<IProviders> = (props) => {
   const { children } = props;
 
   return (
-    <SessionProvider refetchInterval={SESSION.LIFE_TIME}>
-      <SnackbarProvider>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <ThemeProvider theme={MuiTheme}>{children}</ThemeProvider>
-          </PersistGate>
-        </Provider>
-      </SnackbarProvider>
-    </SessionProvider>
+    // <SessionProvider refetchInterval={SESSION.LIFE_TIME}>
+    <SnackbarProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={MuiTheme}>{children}</ThemeProvider>
+        </PersistGate>
+      </Provider>
+    </SnackbarProvider>
+    // </SessionProvider>
   );
 };
 
