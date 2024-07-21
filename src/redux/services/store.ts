@@ -4,6 +4,9 @@ import storageSession from "redux-persist/lib/storage/session";
 import sampleSlice from "../features/sample/sampleSlice";
 import { sampleApi } from "../features/sample/sampleApi";
 import unsavedChangesSlice from "../features/prompt/unsavedChangesSlice";
+import productSlice from "../features/product/productSlice";
+import productDialogSlice from "../features/product/productDialogSlice";
+import productFormSlice from "../features/product/productFormSlice";
 
 const persistConfig = {
   key: "root",
@@ -15,6 +18,9 @@ const rootReducer = combineReducers({
   sampleSlice: sampleSlice,
   [sampleApi.reducerPath]: sampleApi.reducer,
   unsavedChangesSlice,
+  productSlice,
+  productDialogSlice,
+  productFormSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

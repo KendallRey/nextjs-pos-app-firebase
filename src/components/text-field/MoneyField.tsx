@@ -1,15 +1,15 @@
 "use client";
 
-import { OutlinedInputProps, TextFieldProps } from "@mui/material";
+import { OutlinedInputProps } from "@mui/material";
 import { formatToId } from "../helper/component";
 import { ICustomNumericFormatProps, NumericFormatCustom } from "./NumberField";
-import { CustomMuiTextField } from "./TextField";
+import { CustomMuiTextField, IMuiTextField } from "./TextField";
 
 type IMuiMoneyField = {
   label: string;
   value?: string | number;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-} & Omit<TextFieldProps, "onChange"> &
+} & Omit<IMuiTextField, "onChange"> &
   ICustomNumericFormatProps;
 
 // #region [TBC] needs more testing

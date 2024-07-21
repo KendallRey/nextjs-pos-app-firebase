@@ -9,6 +9,7 @@ type MuiButtonProps = ButtonProps;
 const DEFAULT_PROPS = {};
 
 const MuiButton: React.FC<MuiButtonProps> = (props) => {
+  const { sx, ...otherProps } = props;
   return (
     <Button
       whileHover={{ scale: 1.1 }}
@@ -17,7 +18,12 @@ const MuiButton: React.FC<MuiButtonProps> = (props) => {
       component={motion.button}
       variant="contained"
       color="primary"
-      {...props}
+      {...otherProps}
+      {...DEFAULT_PROPS}
+      sx={{
+        textTransform: "none",
+        ...sx,
+      }}
     />
   );
 };

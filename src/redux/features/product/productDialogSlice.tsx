@@ -19,11 +19,11 @@ const productDialogSlice = createSlice({
   name: REDUX.SLICE.PRODUCT,
   initialState: INITIAL_STATE,
   reducers: {
-    setProductToCreate: setAction<IDataToModify, IProductSchema>("productToCreate"),
+    setProductToCreate: setAction<IDataToModify, Partial<IProductSchema>>("productToCreate"),
     clearProductToCreate: clearAction("productToCreate"),
-    setProductToUpdate: setAction<IDataToModify, IProductSchema>("productToUpdate"),
+    setProductToUpdate: setAction<IDataToModify, Partial<IProductSchema>>("productToUpdate"),
     clearProductToUpdate: clearAction("productToUpdate"),
-    setProductToDelete: setAction<IDataToModify, IProductSchema>("productToDelete"),
+    setProductToDelete: setAction<IDataToModify, Partial<IProductSchema>>("productToDelete"),
     clearProductToDelete: clearAction("productToDelete"),
   },
 });

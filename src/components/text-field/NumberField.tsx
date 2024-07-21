@@ -1,6 +1,9 @@
 import { NumberFormatValues, NumericFormat, NumericFormatProps } from "react-number-format";
 import { forwardRef, useCallback } from "react";
 import { NUMBER } from "../helper/field";
+import { formatToId } from "../helper/component";
+import MuiTextField, { IMuiTextField } from "./TextField";
+import { OutlinedInputProps } from "@mui/material";
 
 export type ICustomNumericFormatProps = {
   min?: number;
@@ -61,3 +64,42 @@ export const NumericFormatCustom = forwardRef<HTMLInputElement, INumericFormatPr
 });
 
 NumericFormatCustom.displayName = "NumericFormatCustom";
+
+type IMuiNumberField = {
+  label: string;
+  value?: string | number;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  numericProps?: Omit<NumericFormatProps, "onChange">;
+} & Omit<IMuiTextField, "onChange"> &
+  ICustomNumericFormatProps;
+
+export const MuiNumberField: React.FC<IMuiNumberField> = (props) => {
+  const { label, id, name, value, onChange, min, max, numericProps, ...otherProps } = props;
+
+  const _id = formatToId(id || String(label));
+
+  return (
+    <MuiTextField
+      id={_id}
+      name={name || _id}
+      label={label}
+      value={value}
+      onChange={onChange}
+      {...otherProps}
+      InputProps={
+        {
+          disableUnderline: true,
+          inputComponent: NumericFormatCustom as unknown,
+          inputProps: {
+            onChange: onChange,
+            name: name || _id,
+            value: value,
+            ...numericProps,
+            min: min,
+            max: max,
+          },
+        } as Partial<OutlinedInputProps>
+      }
+    />
+  );
+};

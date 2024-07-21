@@ -32,13 +32,14 @@ export const CustomMuiTextField = styled(({ InputProps, ...props }: TextFieldPro
   },
 }));
 
-type IMuiTextField = {
+export type IMuiTextField = {
   label: string;
   maxLength?: number;
+  errorText?: string;
 } & TextFieldProps;
 
 const MuiTextField = (props: IMuiTextField) => {
-  const { label, id, name, inputProps, maxLength, ...cleanProps } = props;
+  const { label, id, name, inputProps, maxLength, errorText, ...cleanProps } = props;
   const _id = formatToId(id || String(label));
   return (
     <CustomMuiTextField
@@ -50,6 +51,8 @@ const MuiTextField = (props: IMuiTextField) => {
         maxLength,
         ...inputProps,
       }}
+      error={Boolean(errorText)}
+      helperText={errorText}
       {...cleanProps}
     />
   );
