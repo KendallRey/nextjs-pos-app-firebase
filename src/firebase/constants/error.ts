@@ -1,6 +1,8 @@
 export const ERRORS = {
   505: "ERROR 500",
   PRODUCT_ALREADY_EXISTS: "Product already exists.",
+  PRODUCT_NOT_FOUND: "Product does not exists.",
+  PRODUCT_ITEM_NOT_FOUND: "Product Item does not exists.",
   CATEGORY_ALREADY_EXISTS: "Category already exists.",
   CATEGORY_NOT_FOUND: "Category not found.",
   CATEGORY_CREATE_VALIDATION_FAILED: "Category Create Validation Failed!",

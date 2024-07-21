@@ -4,6 +4,7 @@ import MuiPaper from "@/components/paper/Paper";
 import ProductList from "./ui/ProductList";
 import ProductAction from "./ui/ProductAction";
 import CreateProductDialog from "./ui/CreateProductDialog";
+import UpdateProductDialog from "./ui/UpdateProductDialog";
 
 const ProductPage = () => {
   return (
@@ -17,6 +18,7 @@ const ProductPage = () => {
         </MuiPaper>
       </Dashboard>
       <CreateProductDialog />
+      <UpdateProductDialog />
     </>
   );
 };

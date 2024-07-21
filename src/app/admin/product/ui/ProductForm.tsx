@@ -15,7 +15,7 @@ import {
 import { selectDataArrayOfByIDs } from "@/components/helper/array";
 import useFirestoreCollection from "@/firebase/hooks/useFirebaseCollection";
 import { FIREBASE } from "@/firebase/constants/firebase";
-import { _selectProduFormCategoryFormCategory } from "@/model/product/product-form-selector";
+import { _selectProductFormCategoryFormCategory } from "@/model/product/product-form-selector";
 import { getInputRecord, getSelectMultipleInputRecord, InputRecord } from "@/redux/helper/input";
 import ProductFormPreview from "./ProductPreview";
 import MuiTypography from "@/components/typography/Typograph";
@@ -24,7 +24,7 @@ const ProductForm = () => {
   const dispatch = useAppDispatch();
   const { error, ...form } = useAppSelector((state) => state.productFormSlice);
 
-  const formCategory = useAppSelector(_selectProduFormCategoryFormCategory);
+  const formCategory = useAppSelector(_selectProductFormCategoryFormCategory);
 
   const { data: categories } = useFirestoreCollection<ICategory>(FIREBASE.COLLECTION.CATEGORY);
 
@@ -40,6 +40,7 @@ const ProductForm = () => {
     (e: InputRecord) => {
       const { list } = getSelectMultipleInputRecord(e);
       const _categories = selectDataArrayOfByIDs(categories, list);
+
       dispatch(setProductCategories(_categories));
     },
     [dispatch, categories],
@@ -86,8 +87,13 @@ const ProductForm = () => {
         />
         <Divider />
         <div className="flex flex-wrap gap-2">
-          {formCategory?.list.map((item) => (
-            <MuiChip key={item.id} label={item.name} color="primary" onDelete={() => onRemoveCategory(item)} />
+          {formCategory?.list.map((item, i) => (
+            <MuiChip
+              key={`${item.id}-${i}`}
+              label={item.name}
+              color="primary"
+              onDelete={() => onRemoveCategory(item)}
+            />
           ))}
         </div>
         <MuiFormSelect

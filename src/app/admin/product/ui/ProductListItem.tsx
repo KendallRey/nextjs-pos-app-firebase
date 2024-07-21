@@ -8,17 +8,40 @@ import { FIELDS } from "@/components/constants/config";
 import { formatToCount, parseToMoney } from "@/components/helper/component";
 import MuiStack from "@/components/stack/Stack";
 import MuiTypography from "@/components/typography/Typograph";
+import useFirestoreProductTransaction from "@/firebase/hooks/useFirestoreProduct";
+import { IProductSchema } from "@/model/product/product";
 import { IProductPresentation } from "@/model/product/product-presentation";
-import React from "react";
+import { setProductToUpdate } from "@/redux/features/product/productDialogSlice";
+import { setProductForm } from "@/redux/features/product/productFormSlice";
+import { useAppDispatch } from "@/redux/services/hooks";
+import React, { useCallback } from "react";
 
 type IProductListItem = {
   item: IProductPresentation;
 };
 
 const ProducListItem: React.FC<IProductListItem> = ({ item }) => {
+  const dispatch = useAppDispatch();
+  const { getProductApi } = useFirestoreProductTransaction();
+
+  const onClickItem = useCallback(async () => {
+    const productData = await getProductApi<IProductSchema>(item.id);
+    if (productData.status === "failed") return;
+    const { data } = productData;
+    const formData: IFormState<IProductSchema> = {
+      name: data.name,
+      price: data.price,
+      stock: data.stock,
+      description: data.description,
+      categories: data.categories,
+    };
+    dispatch(setProductToUpdate(productData.data));
+    dispatch(setProductForm(formData));
+  }, [item, getProductApi, dispatch]);
+
   return (
     <MuiCard>
-      <MuiCardActionArea>
+      <MuiCardActionArea onClick={onClickItem}>
         <MuiCardMedia component="img" className="max-w-[240px] mx-auto p-4" image="/next.svg" />
         <MuiCardContent>
           <MuiStack direction="row" justifyContent="space-between" flexWrap="wrap">
