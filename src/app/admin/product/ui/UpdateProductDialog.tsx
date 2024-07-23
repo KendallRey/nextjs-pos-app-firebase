@@ -4,7 +4,7 @@ import { useFormChanged } from "@/hooks/useFormChanged";
 import useUnsavedChangesWarning from "@/hooks/useUnsavedChangesPrompt";
 import { useAppDispatch, useAppSelector } from "@/redux/services/hooks";
 import { useCallback } from "react";
-import { clearProductToCreate, clearProductToUpdate } from "@/redux/features/product/productDialogSlice";
+import { clearProductToUpdate } from "@/redux/features/product/productDialogSlice";
 import MuiDialog from "@/components/dialog/Dialog";
 import { getValidationErrors, transformData } from "@/model/helper/data";
 import { appEnqueueSnackbar } from "@/components/helper/snackbar";
@@ -12,23 +12,24 @@ import { SUCCESS } from "@/firebase/constants/error";
 import { clearProductForm, INITIAL_STATE, setProductFormError } from "@/redux/features/product/productFormSlice";
 import { METHOD } from "@/components/constants/method";
 import useFirestoreProductTransaction from "@/firebase/hooks/useFirestoreProduct";
-import { ProductCreateSchema } from "@/model/product/product-create";
 import ProductForm from "./ProductForm";
 import { ProductUpdateSchema } from "@/model/product/product-update";
+import { useUnsavedChangesForm } from "@/hooks/useUnsavedChangesForm";
 
 const UpdateProductDialog = () => {
   const dispatch = useAppDispatch();
   const productToUpdate = useAppSelector((state) => state.productDialogSlice.productToUpdate);
-
-  const onClose = useCallback(() => {
-    dispatch(clearProductToUpdate());
-    dispatch(clearProductForm());
-  }, [dispatch]);
-
   const { error, ...form } = useAppSelector((state) => state.productFormSlice);
 
-  const { isChanged } = useFormChanged(form, INITIAL_STATE);
+  const { clearForm } = useUnsavedChangesForm();
+  const { isChanged } = useFormChanged(form);
   useUnsavedChangesWarning(isChanged);
+
+  const onClose = useCallback(() => {
+    clearForm();
+    dispatch(clearProductToUpdate());
+    dispatch(clearProductForm());
+  }, [dispatch, clearForm]);
 
   const { updateProductApi } = useFirestoreProductTransaction();
 
@@ -63,7 +64,7 @@ const UpdateProductDialog = () => {
 
   return (
     <MuiDialog
-      title={"Update New Product"}
+      title={`Update ${productToUpdate?.name || "Product"}`}
       onConfirm={onValidateProduct}
       onClose={onClose}
       confirmText="Update Product"

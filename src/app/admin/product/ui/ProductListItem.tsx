@@ -9,6 +9,7 @@ import { formatToCount, parseToMoney } from "@/components/helper/component";
 import MuiStack from "@/components/stack/Stack";
 import MuiTypography from "@/components/typography/Typograph";
 import useFirestoreProductTransaction from "@/firebase/hooks/useFirestoreProduct";
+import { useUnsavedChangesForm } from "@/hooks/useUnsavedChangesForm";
 import { IProductSchema } from "@/model/product/product";
 import { IProductPresentation } from "@/model/product/product-presentation";
 import { setProductToUpdate } from "@/redux/features/product/productDialogSlice";
@@ -22,6 +23,8 @@ type IProductListItem = {
 
 const ProducListItem: React.FC<IProductListItem> = ({ item }) => {
   const dispatch = useAppDispatch();
+
+  const { setForm } = useUnsavedChangesForm();
   const { getProductApi } = useFirestoreProductTransaction();
 
   const onClickItem = useCallback(async () => {
@@ -37,7 +40,8 @@ const ProducListItem: React.FC<IProductListItem> = ({ item }) => {
     };
     dispatch(setProductToUpdate(productData.data));
     dispatch(setProductForm(formData));
-  }, [item, getProductApi, dispatch]);
+    setForm(formData);
+  }, [item, getProductApi, dispatch, setForm]);
 
   return (
     <MuiCard>
