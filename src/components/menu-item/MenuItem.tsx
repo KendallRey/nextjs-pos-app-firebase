@@ -6,7 +6,7 @@ type IMuiMenuItem = MenuItemProps;
 const MuiMenuItem: React.FC<IMuiMenuItem> = (props) => {
   return (
     <Tooltip placement="left" title={props.onClick ? undefined : "Under Development"}>
-      <MenuItem {...props} data-testname="menu-item" className="text-slate-200" />
+      <MenuItem data-testname="menu-item" className="text-slate-200" {...props} />
     </Tooltip>
   );
 };

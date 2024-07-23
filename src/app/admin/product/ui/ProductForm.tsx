@@ -3,7 +3,7 @@ import { MuiMoneyField } from "@/components/text-field/MoneyField";
 import MuiTextField from "@/components/text-field/TextField";
 import { useAppDispatch, useAppSelector } from "@/redux/services/hooks";
 import { useCallback } from "react";
-import { Checkbox, Divider, ListItemText, MenuItem } from "@mui/material";
+import { CircularProgress, Divider, ListItemText } from "@mui/material";
 import { ICategory } from "@/model/category";
 import MuiChip from "@/components/chip/Chip";
 import { MuiNumberField } from "@/components/text-field/NumberField";
@@ -15,7 +15,7 @@ import {
 import { selectDataArrayOfByIDs } from "@/components/helper/array";
 import useFirestoreCollection from "@/firebase/hooks/useFirebaseCollection";
 import { FIREBASE } from "@/firebase/constants/firebase";
-import { _selectProductFormCategoryFormCategory } from "@/model/product/product-form-selector";
+import { _selectProductFormCategoryName } from "@/model/product/product-form-selector";
 import { getInputRecord, getSelectMultipleInputRecord, InputRecord } from "@/redux/helper/input";
 import ProductFormPreview from "./ProductPreview";
 import MuiTypography from "@/components/typography/Typograph";
@@ -26,7 +26,7 @@ const ProductForm = () => {
   const dispatch = useAppDispatch();
   const { error, ...form } = useAppSelector((state) => state.productFormSlice);
 
-  const formCategory = useAppSelector(_selectProductFormCategoryFormCategory);
+  const formCategory = useAppSelector(_selectProductFormCategoryName);
 
   const { data: categories } = useFirestoreCollection<ICategory>(FIREBASE.COLLECTION.CATEGORY);
 
