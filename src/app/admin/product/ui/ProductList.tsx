@@ -2,7 +2,6 @@
 
 import { FIREBASE } from "@/firebase/constants/firebase";
 import useFirestoreCollection from "@/firebase/hooks/useFirebaseCollection";
-import { IProductSchema } from "@/model/product/product";
 import React from "react";
 import ProducListItem from "./ProductListItem";
 import MuiBox from "@/components/box/Box";
