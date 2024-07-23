@@ -2,6 +2,8 @@ import { z } from "zod";
 import { ERROR } from "../constants/error";
 import { MODEL, MONEY } from "@/components/constants/config";
 
+export const stringOptional = z.string().nullable().optional();
+
 export const stringRequired = z
   .string({ message: ERROR.FIELD.REQUIRED })
   .min(MODEL.STRING.LIMIT.MIN, ERROR.FIELD.REQUIRED)

@@ -2,6 +2,7 @@ const REDUX_SLICE = {
   SAMPLE: "sample-slice",
   PRODUCT: "product-slice",
   PRODUCT_FORM: "product-form-slice",
+  CATEGORY_FORM: "category-form-slice",
 } as const;
 
 const REDUX_API = {

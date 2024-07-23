@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { moneyRequired } from "../base/data";
-import { CategorySchema } from "../category";
+import { CategorySchema } from "../category/category";
 import { ProductSchema } from "./product";
 
 // #region Form Create

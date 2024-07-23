@@ -7,6 +7,8 @@ import unsavedChangesSlice from "../features/prompt/unsavedChangesSlice";
 import productSlice from "../features/product/productSlice";
 import productDialogSlice from "../features/product/productDialogSlice";
 import productFormSlice from "../features/product/productFormSlice";
+import categoryDialogSlice from "../features/category/categoryDialogSlice";
+import categoryFormSlice from "../features/category/categoryFormSlice";
 
 const persistConfig = {
   key: "root",
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   productSlice,
   productDialogSlice,
   productFormSlice,
+  categoryDialogSlice,
+  categoryFormSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

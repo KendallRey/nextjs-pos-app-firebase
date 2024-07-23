@@ -9,7 +9,7 @@ import {
 } from "@/redux/helper/action";
 import { REDUX } from "@/redux/constant/slice";
 import { IProductFormSchema } from "@/model/product/product-form";
-import { ICategory } from "@/model/category";
+import { ICategorySchema } from "@/model/category/category";
 
 type IProductFormState = IReduxFormState<IProductFormSchema>;
 
@@ -26,7 +26,7 @@ const productFormSlice = createSlice({
     editProductForm: processFormAction<IProductFormState>(INITIAL_STATE),
     setProductFormError: setFormErrorAction<IProductFormState>,
     setProductCategories: setArrayAction<IProductFormState>("categories"),
-    selectProductCategory: selectItemAction<IProductFormState, ICategory>("categories"),
+    selectProductCategory: selectItemAction<IProductFormState, ICategorySchema>("categories"),
     clearProductFormError: clearFormErrorAction,
     clearProductForm: () => INITIAL_STATE,
   },

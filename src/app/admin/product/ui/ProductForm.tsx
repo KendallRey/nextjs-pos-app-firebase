@@ -4,7 +4,7 @@ import MuiTextField from "@/components/text-field/TextField";
 import { useAppDispatch, useAppSelector } from "@/redux/services/hooks";
 import { useCallback } from "react";
 import { CircularProgress, Divider, ListItemText } from "@mui/material";
-import { ICategory } from "@/model/category";
+import { ICategorySchema } from "@/model/category/category";
 import MuiChip from "@/components/chip/Chip";
 import { MuiNumberField } from "@/components/text-field/NumberField";
 import {
@@ -28,7 +28,7 @@ const ProductForm = () => {
 
   const formCategory = useAppSelector(_selectProductFormCategoryName);
 
-  const { data: categories } = useFirestoreCollection<ICategory>(FIREBASE.COLLECTION.CATEGORY);
+  const { data: categories } = useFirestoreCollection<ICategorySchema>(FIREBASE.COLLECTION.CATEGORY);
 
   const onChange = useCallback(
     (e: InputRecord) => {
@@ -49,7 +49,7 @@ const ProductForm = () => {
   );
 
   const onRemoveCategory = useCallback(
-    (item: ICategory) => {
+    (item: ICategorySchema) => {
       dispatch(selectProductCategory({ item, select: false }));
     },
     [dispatch],

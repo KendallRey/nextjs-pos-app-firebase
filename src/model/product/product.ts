@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { BaseSchema } from "../base/base";
-import { CategorySchema } from "../category";
+import { CategorySchema } from "../category/category";
 
 export const ProductSchema = BaseSchema.merge(
   z.object({
