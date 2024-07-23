@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import MuiDialog from "@/components/dialog/Dialog";
 import { useAppDispatch, useAppSelector } from "@/redux/services/hooks";
