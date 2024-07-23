@@ -19,6 +19,8 @@ import { _selectProductFormCategoryFormCategory } from "@/model/product/product-
 import { getInputRecord, getSelectMultipleInputRecord, InputRecord } from "@/redux/helper/input";
 import ProductFormPreview from "./ProductPreview";
 import MuiTypography from "@/components/typography/Typograph";
+import MuiMenuItem from "@/components/menu-item/MenuItem";
+import MuiCheckbox from "@/components/checkbox/Checkbox";
 
 const ProductForm = () => {
   const dispatch = useAppDispatch();
@@ -104,10 +106,10 @@ const ProductForm = () => {
           renderValue={() => formCategory.value}
         >
           {categories.map((item) => (
-            <MenuItem key={item.id} value={item.id}>
-              <Checkbox checked={formCategory.ids.includes(item.id)} />
+            <MuiMenuItem key={item.id} value={item.id}>
+              <MuiCheckbox sx={{ paddingY: 0.5 }} checked={formCategory.ids.includes(item.id)} />
               <ListItemText primary={item.name} />
-            </MenuItem>
+            </MuiMenuItem>
           ))}
         </MuiFormSelect>
       </div>
