@@ -70,6 +70,7 @@ const MuiDialog: React.FC<IMuiDialog> = (props) => {
       fullScreen={variant === "form" ? fullscreen : false}
       maxWidth={variant === "confirm" ? "xs" : maxWidth}
       fullWidth={fullWidth}
+      keepMounted={false}
       {...otherProps}
     >
       <DialogTitle>{title}</DialogTitle>

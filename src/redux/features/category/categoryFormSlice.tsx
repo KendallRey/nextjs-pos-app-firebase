@@ -5,7 +5,7 @@ import { ICategoryFormSchema } from "@/model/category/category-form";
 
 type ICategoryFormState = IReduxFormState<ICategoryFormSchema>;
 
-const INITIAL_STATE: ICategoryFormState = {
+export const INITIAL_STATE: ICategoryFormState = {
   error: {},
 };
 

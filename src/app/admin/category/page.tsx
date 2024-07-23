@@ -3,6 +3,7 @@ import Dashboard from "../ui/dashboard/Dashboard";
 import MuiPaper from "@/components/paper/Paper";
 import CategoryAction from "./ui/CategoryAction";
 import CategoryList from "./ui/CategoryList";
+import CreateCategoryDialog from "./ui/CreateCategoryDialog";
 
 const CategoryPage = () => {
   return (
@@ -15,6 +16,8 @@ const CategoryPage = () => {
           </div>
         </MuiPaper>
       </Dashboard>
+
+      <CreateCategoryDialog />
     </>
   );
 };
