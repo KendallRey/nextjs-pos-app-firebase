@@ -6,34 +6,38 @@ import { useCallback } from "react";
 import { getValidationErrors, transformData } from "@/model/helper/data";
 import useFirestoreCategoryTransaction from "@/firebase/hooks/useFirebaseCategory";
 import { METHOD } from "@/components/constants/method";
-import { clearCategoryToCreate } from "@/redux/features/category/categoryDialogSlice";
-import { clearCategoryForm, INITIAL_STATE, setCategoryFormError } from "@/redux/features/category/categoryFormSlice";
+import { clearCategoryToUpdate } from "@/redux/features/category/categoryDialogSlice";
+import { clearCategoryForm, setCategoryFormError } from "@/redux/features/category/categoryFormSlice";
 import CategoryForm from "./CategoryForm";
 import { useFormChanged } from "@/hooks/useFormChanged";
 import useUnsavedChangesWarning from "@/hooks/useUnsavedChangesPrompt";
-import { CategoryCreateSchema } from "@/model/category/category-create";
 import { appEnqueueSnackbar } from "@/components/helper/snackbar";
 import { SUCCESS } from "@/firebase/constants/error";
+import { useUnsavedChangesForm } from "@/hooks/useUnsavedChangesForm";
+import { CategoryUpdateSchema } from "@/model/category/category-update";
 
-const CreateCategoryDialog = () => {
+const UpdateCategoryDialog = () => {
   const dispatch = useAppDispatch();
 
-  const categoryToCreate = useAppSelector((state) => state.categoryDialogSlice.categoryToCreate);
+  const categoryToUpdate = useAppSelector((state) => state.categoryDialogSlice.categoryToUpdate);
   const { error, ...form } = useAppSelector((state) => state.categoryFormSlice);
 
-  const { isChanged } = useFormChanged(form, INITIAL_STATE);
+  const { clearForm } = useUnsavedChangesForm();
+  const { isChanged } = useFormChanged(form);
   useUnsavedChangesWarning(isChanged);
 
-  const { addCategoryApi } = useFirestoreCategoryTransaction();
+  const { updateCategoryApi } = useFirestoreCategoryTransaction();
 
   const onClose = useCallback(() => {
-    dispatch(clearCategoryToCreate());
+    dispatch(clearCategoryToUpdate());
     dispatch(clearCategoryForm());
-  }, [dispatch]);
+    clearForm();
+  }, [dispatch, clearForm]);
 
-  const onAddCategory = useCallback(async () => {
-    const clearFormData = transformData(form, METHOD.POST);
-    const data = await addCategoryApi(clearFormData);
+  const onUpdateCategory = useCallback(async () => {
+    if (!categoryToUpdate) return;
+    const clearFormData = transformData(form, METHOD.PUT);
+    const data = await updateCategoryApi(categoryToUpdate.id, clearFormData);
     if (data.status === "failed") {
       appEnqueueSnackbar({
         variant: "error",
@@ -44,31 +48,31 @@ const CreateCategoryDialog = () => {
     onClose();
     appEnqueueSnackbar({
       variant: "success",
-      message: SUCCESS.CATEGORY_CREATED,
+      message: SUCCESS.CATEGORY_UPDATED,
     });
-  }, [dispatch, addCategoryApi, onClose, form]);
+  }, [dispatch, updateCategoryApi, onClose, form]);
 
   const onValidateCategory = useCallback(() => {
     const clearFormData = transformData(form, METHOD.POST);
-    const productItemValidation = CategoryCreateSchema.safeParse(clearFormData);
+    const productItemValidation = CategoryUpdateSchema.safeParse(clearFormData);
     if (!productItemValidation.success) {
       const error = getValidationErrors(productItemValidation);
       dispatch(setCategoryFormError(error));
       return;
     }
-    onAddCategory();
-  }, [dispatch, form, onAddCategory]);
+    onUpdateCategory();
+  }, [dispatch, form, onUpdateCategory]);
 
   return (
     <MuiDialog
-      title={"Create New Category"}
+      title={`Update ${categoryToUpdate?.name || "Category"}`}
       onClose={onClose}
       onConfirm={onValidateCategory}
       variant="form"
-      confirmText="Create Category"
+      confirmText="Update Category"
       maxWidth="sm"
       fullWidth
-      open={Boolean(categoryToCreate)}
+      open={Boolean(categoryToUpdate)}
       promptUnsaved={isChanged}
     >
       <CategoryForm />
@@ -76,4 +80,4 @@ const CreateCategoryDialog = () => {
   );
 };
 
-export default CreateCategoryDialog;
+export default UpdateCategoryDialog;

@@ -4,6 +4,8 @@ import MuiPaper from "@/components/paper/Paper";
 import CategoryAction from "./ui/CategoryAction";
 import CategoryList from "./ui/CategoryList";
 import CreateCategoryDialog from "./ui/CreateCategoryDialog";
+import UpdateCategoryDialog from "./ui/UpdateCategoryDialog";
+import DeleteCategoryDialog from "./ui/DeleteCategoryDialog";
 
 const CategoryPage = () => {
   return (
@@ -18,6 +20,8 @@ const CategoryPage = () => {
       </Dashboard>
 
       <CreateCategoryDialog />
+      <UpdateCategoryDialog />
+      <DeleteCategoryDialog />
     </>
   );
 };

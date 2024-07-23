@@ -56,10 +56,10 @@ const useFirestoreCategoryTransaction = () => {
   // #endregion
 
   // #region Update
-  const updateCategoryApi = async (data: Partial<ICategorySchema>, id: string): Promise<IApiResponse> => {
+  const updateCategoryApi = async (categoryID: string, data: Partial<ICategorySchema>): Promise<IApiResponse> => {
     try {
       await runTransaction(db, async (transaction) => {
-        const categoryDoc = doc(db, FIREBASE.COLLECTION.CATEGORY, id);
+        const categoryDoc = doc(db, FIREBASE.COLLECTION.CATEGORY, categoryID);
 
         const categorySnapshot = await transaction.get(categoryDoc);
         if (!categorySnapshot.exists()) throw new Error(ERRORS.CATEGORY_NOT_FOUND);
@@ -73,11 +73,11 @@ const useFirestoreCategoryTransaction = () => {
 
         await addDoc(actionLogCollectionRef, {
           userId: null,
-          event: `${"user"}-${METHOD.POST}-[${FIREBASE.COLLECTION.CATEGORY}]-[${id}]`,
+          event: `${"user"}-${METHOD.POST}-[${FIREBASE.COLLECTION.CATEGORY}]-[${categoryID}]`,
           action: METHOD.PUT,
           status: "success",
           model: FIREBASE.COLLECTION.CATEGORY,
-          itemId: id,
+          itemId: categoryID,
           timestamp: serverTimestamp(),
         });
       });
