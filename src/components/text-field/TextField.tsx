@@ -5,6 +5,7 @@ import TextField, { TextFieldProps } from "@mui/material/TextField";
 import { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import { formatToId } from "../helper/component";
 import { BASE_INPUT } from "../constants/style";
+import { TEXT } from "../helper/field";
 
 const DEFAULT_PROPS: TextFieldProps = {
   variant: "filled",
@@ -48,7 +49,7 @@ const MuiTextField = (props: IMuiTextField) => {
       label={label}
       inputProps={{
         max: props.type === "date" ? "9999-12-31" : undefined,
-        maxLength,
+        maxLength: maxLength ?? TEXT.MAX.NAME,
         ...inputProps,
       }}
       error={Boolean(errorText)}

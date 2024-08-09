@@ -21,6 +21,7 @@ import ProductFormPreview from "./ProductPreview";
 import MuiTypography from "@/components/typography/Typograph";
 import MuiMenuItem from "@/components/menu-item/MenuItem";
 import MuiCheckbox from "@/components/checkbox/Checkbox";
+import { TEXT } from "@/components/helper/field";
 
 const ProductForm = () => {
   const dispatch = useAppDispatch();
@@ -86,6 +87,7 @@ const ProductForm = () => {
           value={form.description || ""}
           rows={2}
           onChange={onChange}
+          maxLength={TEXT.MAX.LONG}
         />
         <Divider />
         <div className="flex flex-wrap gap-2">

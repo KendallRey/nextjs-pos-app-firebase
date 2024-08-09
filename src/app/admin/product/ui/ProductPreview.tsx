@@ -37,7 +37,11 @@ const ProductFormPreview = () => {
       </MuiCardActionArea>
       <MuiCardActions>
         <div className="flex flex-wrap gap-2">
-          {form.categories?.map((item) => <MuiChip key={item.id} label={item.name} color="primary" />)}
+          {form.categories?.length ? (
+            form.categories?.map((item, i) => <MuiChip key={item.id} label={item.name} color="primary" />)
+          ) : (
+            <MuiTypography variant="caption">no category</MuiTypography>
+          )}
         </div>
       </MuiCardActions>
     </MuiCard>

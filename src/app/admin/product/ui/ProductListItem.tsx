@@ -46,7 +46,7 @@ const ProducListItem: React.FC<IProductListItem> = ({ item }) => {
   return (
     <MuiCard>
       <MuiCardActionArea onClick={onClickItem}>
-        <MuiCardMedia component="img" className="max-w-[240px] mx-auto p-4" image="/next.svg" />
+        <MuiCardMedia component="img" className="max-w-[240px] min-h-[240px] mx-auto p-4" image="/next.svg" />
         <MuiCardContent>
           <MuiStack direction="row" justifyContent="space-between" flexWrap="wrap">
             <MuiTypography gutterBottom variant="h5" component="div">
@@ -68,7 +68,11 @@ const ProducListItem: React.FC<IProductListItem> = ({ item }) => {
       </MuiCardActionArea>
       <MuiCardActions>
         <div className="flex flex-wrap gap-2">
-          {item.categories?.map((item, i) => <MuiChip key={`${item}-${i}`} label={item} color="primary" />)}
+          {item.categories?.length ? (
+            item.categories?.map((item, i) => <MuiChip key={`${item}-${i}`} label={item} color="primary" />)
+          ) : (
+            <MuiTypography variant="caption">no category</MuiTypography>
+          )}
         </div>
       </MuiCardActions>
     </MuiCard>
