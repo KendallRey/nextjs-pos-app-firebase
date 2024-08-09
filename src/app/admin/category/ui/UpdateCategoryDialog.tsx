@@ -54,9 +54,9 @@ const UpdateCategoryDialog = () => {
 
   const onValidateCategory = useCallback(() => {
     const clearFormData = transformData(form, METHOD.POST);
-    const productItemValidation = CategoryUpdateSchema.safeParse(clearFormData);
-    if (!productItemValidation.success) {
-      const error = getValidationErrors(productItemValidation);
+    const categoryValidation = CategoryUpdateSchema.safeParse(clearFormData);
+    if (!categoryValidation.success) {
+      const error = getValidationErrors(categoryValidation);
       dispatch(setCategoryFormError(error));
       return;
     }

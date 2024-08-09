@@ -7,6 +7,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { ERRORS } from "../constants/error";
 import { METHOD } from "@/components/constants/method";
 import { ICategorySchema } from "@/model/category/category";
+import { CategoryUpdateSchema } from "@/model/category/category-update";
 
 const useFirestoreCategoryTransaction = () => {
   const actionLogCollectionRef = collection(db, FIREBASE.COLLECTION.ACTION_LOGS);
@@ -64,7 +65,7 @@ const useFirestoreCategoryTransaction = () => {
         const categorySnapshot = await transaction.get(categoryDoc);
         if (!categorySnapshot.exists()) throw new Error(ERRORS.CATEGORY_NOT_FOUND);
 
-        const categoryValidation = CategoryCreateSchema.safeParse(data);
+        const categoryValidation = CategoryUpdateSchema.safeParse(data);
         if (!categoryValidation.success) {
           throw new Error(ERRORS.CATEGORY_UPDATE_VALIDATION_FAILED);
         }

@@ -16,5 +16,5 @@ export const SUCCESS = {
   PRODUCT_CREATED: "Product saved successfully!",
   PRODUCT_UPDATED: "Product updated successfully!",
   CATEGORY_CREATED: "Category saved successfully!",
-  CATEGORY_UPDATED: "Product saved successfully!",
+  CATEGORY_UPDATED: "Category updated successfully!",
 };

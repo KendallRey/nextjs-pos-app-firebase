@@ -1,3 +1,4 @@
+import { TEXT } from "@/components/helper/field";
 import MuiTextField from "@/components/text-field/TextField";
 import { editCategoryForm } from "@/redux/features/category/categoryFormSlice";
 import { InputRecord, getInputRecord } from "@/redux/helper/input";
@@ -28,6 +29,7 @@ const CategoryForm = () => {
         rows={2}
         onChange={onChange}
         errorText={error?.description}
+        maxLength={TEXT.MAX.LONG}
       />
     </form>
   );
